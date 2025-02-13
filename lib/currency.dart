@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 
   Future<String> extractData(currency) async
   {
+     if (currency == "United States Dollar") return "1";
     final response = await http.Client().get(Uri.parse('https://www.x-rates.com/table/?from=USD&amount=1'));
     if(response.statusCode == 200)
     {
@@ -41,23 +42,15 @@ import 'package:http/http.dart' as http;
   }
 
 
-Future convert(currency1, currency2, amount)
-async {
-  var convert1 = await extractData(currency1);
-  var convert2 = await extractData(currency2);
-
-  if(convert1 != "Error" && convert2 != "Error")
-  {
-    double conversion_rate = double.parse(convert1) / double.parse(convert2);
-    return amount/conversion_rate ;
-  }
-  else
-  {
+Future<double> convert(String fromCurrency, String toCurrency, double amount) async {
+  String rateFrom = (fromCurrency == "United States Dollar") ? "1" : await extractData(fromCurrency);
+  String rateTo = (toCurrency == "United States Dollar") ? "1" : await extractData(toCurrency);
+  if (rateFrom != "Error" && rateTo != "Error") {
+    // Conversion: amount in toCurrency = amount * (rateTo / rateFrom)
+    return amount * double.parse(rateTo) / double.parse(rateFrom);
+  } else {
     return -1.0;
   }
-
-
-
 }
 
 
