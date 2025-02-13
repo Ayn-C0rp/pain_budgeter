@@ -2,6 +2,13 @@ import 'package:html/parser.dart' as parser;
 import 'package:http/http.dart' as http;
 
 
+
+// Define a list of available currencies.
+const List<String> availableCurrencies = [
+  'United States Dollar',
+  'South Korean Won'
+];
+
   Future<String> extractData(currency) async
   {
      if (currency == "United States Dollar") return "1";
@@ -25,20 +32,11 @@ import 'package:http/http.dart' as http;
         {
           return 'Error';
         }
-        
-
-
-
       }
-
-
-
     }
     else{
      return "Error" ;
-    }
-   
-
+    }  
   }
 
 

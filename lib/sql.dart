@@ -130,21 +130,3 @@ class Entry {
   
 
 }
-
-
-void main() async
-{
-  var uuid = Uuid();
-  Database db = await setupDatabase();
-  insertEntry(Entry(id: uuid.v4() , date: '2025-2-11', name: 'pulbit rice', price: 6400), db);
-  //insertEntry(Entry(id: 2, date: '2025-2-12', name: 'pulbit rice', price: 6400), db);
-  var data = await getEntryFromRange(db, '2025-2-11', '2025-2-12');
-  print(data);
-
-
-
-  
-
-
-
-}
